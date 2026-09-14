@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="dashboard-page">
+
+    <!-- ENCABEZADO -->
+    <div class="dashboard-header">
+        <div>
+            <span class="dashboard-label">VAJISTECH</span>
+            <h1>Panel de gestión</h1>
+            <p>Administra tus propiedades y solicitudes desde un solo lugar.</p>
+        </div>
+
+        <a href="{% url 'add_property' %}" class="dashboard-primary-btn">
+            ＋ Nueva propiedad
+        </a>
+    </div>
+
+
+    <!-- ESTADÍSTICAS -->
+    <div class="dashboard-stats">
+
+        <div class="dashboard-stat-card">
+            <div class="stat-icon">🏠</div>
+            <div>
+                <span>Total propiedades</span>
+                <strong>{{ properties_count }}</strong>
+            </div>
+        </div>
+
+        <div class="dashboard-stat-card">
+            <div class="stat-icon">💰</div>
+            <div>
+                <span>En venta</span>
+                <strong>{{ sale_count }}</strong>
+            </div>
+        </div>
+
+        <div class="dashboard-stat-card">
+            <div class="stat-icon">🔑</div>
+            <div>
+                <span>En arriendo</span>
+                <strong>{{ rent_count }}</strong>
+            </div>
+        </div>
+
+        <div class="dashboard-stat-card">
+            <div class="stat-icon">📩</div>
+            <div>
+                <span>Solicitudes</span>
+                <strong>{{ contact_count }}</strong>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- ACCIONES -->
+    <div class="dashboard-section">
+
+        <div class="dashboard-section-header">
+            <div>
+                <span class="dashboard-label">GESTIÓN</span>
+                <h2>Acciones rápidas</h2>
+            </div>
+        </div>
+
+        <div class="dashboard-actions">
+
+            <a href="{% url 'add_property' %}" class="dashboard-action">
+                <span class="action-icon">➕</span>
+                <div>
+                    <strong>Agregar propiedad</strong>
+                    <small>Publica una nueva propiedad</small>
+                </div>
+                <span class="action-arrow">→</span>
+            </a>
+
+            <a href="{% url 'manage_properties' %}" class="dashboard-action">
+                <span class="action-icon">🏘️</span>
+                <div>
+                    <strong>Gestionar propiedades</strong>
+                    <small>Editar, consultar o eliminar</small>
+                </div>
+                <span class="action-arrow">→</span>
+            </a>
+
+            <a href="{% url 'manage_contacts' %}" class="dashboard-action">
+                <span class="action-icon">📨</span>
+                <div>
+                    <strong>Solicitudes de contacto</strong>
+                    <small>Consulta los mensajes recibidos</small>
+                </div>
+                <span class="action-arrow">→</span>
+                <a href="{% url 'manage_users' %}" class="quick-action-card">
+    <div class="quick-action-icon">👥</div>
+    <div>
+        <h3>Gestionar usuarios</h3>
+        <p>Consultar usuarios registrados</p>
+    </div>
+</a>
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- SOLICITUDES RECIENTES -->
+    <div class="dashboard-section">
+
+        <div class="dashboard-section-header">
+            <div>
+                <span class="dashboard-label">CONTACTOS</span>
+                <h2>Solicitudes recientes</h2>
+            </div>
+
+            <a href="{% url 'manage_contacts' %}" class="dashboard-view-all">
+                Ver todas →
+            </a>
+        </div>
+
+
+        {% if recent_contacts %}
+
+        <div class="dashboard-contacts">
+
+            {% for contact in recent_contacts %}
+
+            <div class="dashboard-contact-card">
+
+                <div class="contact-avatar">
+                    {{ contact.name|first|upper }}
+                </div>
+
+                <div class="contact-info">
+                    <strong>{{ contact.name }}</strong>
+
+                    <span>
+                        {{ contact.email }}
+                    </span>
+
+                    <small>
+                        {{ contact.property.title }}
+                    </small>
+                </div>
+
+                <div class="contact-date">
+                    {{ contact.created_at|date:"d/m/Y H:i" }}
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="dashboard-empty">
+            <div>📭</div>
+            <h3>No hay solicitudes todavía</h3>
+            <p>Cuando un visitante contacte por una propiedad, aparecerá aquí.</p>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

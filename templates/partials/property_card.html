@@ -1,0 +1,19 @@
+<article class="property-card">
+    <div class="property-image">
+        {% if property.image_url %}
+        <img src="{{ property.image_url }}" alt="{{ property.title }}">
+        {% else %}
+        <div class="house-placeholder">⌂</div>
+        {% endif %}
+        <span class="badge">{{ property.operation }}</span>
+    </div>
+    <div class="property-body">
+        <div class="muted">{{ property.city }}{% if property.neighborhood %} · {{ property.neighborhood }}{% endif %}</div>
+        <h3>{{ property.title }}</h3>
+        <div class="specs"><span>🛏 {{ property.bedrooms }}</span><span>🛁 {{ property.bathrooms }}</span><span>🚗 {{ property.parking }}</span><span>📐 {{ property.area }} m²</span></div>
+        <div class="card-bottom">
+            <strong>{{ property.formatted_price }}</strong>
+            <a class="btn small" href="{% url 'property_detail' property.pk %}">Ver detalle</a>
+        </div>
+    </div>
+</article>

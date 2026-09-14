@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Propiedades | VajiSTech{% endblock %}
+{% block content %}
+<section class="page-header"><span class="eyebrow">CATÁLOGO</span><h1>Propiedades disponibles</h1><p>Encuentra el inmueble que se adapte a ti.</p></section>
+<section class="section">
+<form class="filters" method="get">
+    <input name="q" value="{{ query }}" placeholder="Ciudad, barrio o nombre">
+    <select name="city"><option value="">Todas las ciudades</option>{% for c in cities %}<option value="{{ c }}" {% if selected_city == c %}selected{% endif %}>{{ c }}</option>{% endfor %}</select>
+    <select name="type"><option value="">Tipo</option><option {% if selected_type == "Casa" %}selected{% endif %}>Casa</option><option {% if selected_type == "Apartamento" %}selected{% endif %}>Apartamento</option><option {% if selected_type == "Lote" %}selected{% endif %}>Lote</option><option {% if selected_type == "Comercial" %}selected{% endif %}>Comercial</option></select>
+    <select name="operation"><option value="">Operación</option><option {% if selected_operation == "Venta" %}selected{% endif %}>Venta</option><option {% if selected_operation == "Arriendo" %}selected{% endif %}>Arriendo</option></select>
+    <button class="btn">Filtrar</button>
+</form>
+<div class="results-count">{{ properties|length }} propiedades encontradas</div>
+<div class="cards">
+{% for p in properties %}{% include "partials/property_card.html" with property=p %}{% empty %}<div class="empty"><h3>No encontramos resultados</h3><p>Prueba con otros filtros.</p></div>{% endfor %}
+</div>
+</section>
+{% endblock %}

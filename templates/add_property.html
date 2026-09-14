@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+
+{% block title %}Agregar propiedad | VajiSTech{% endblock %}
+
+{% block content %}
+
+<section class="add-property-page">
+
+    <div class="dashboard-header">
+        <div>
+            <span class="dashboard-label">VAJISTECH</span>
+            <h1>Agregar propiedad</h1>
+            <p>Registra una nueva propiedad para publicarla en VajiSTech.</p>
+        </div>
+
+        <a href="{% url 'dashboard' %}" class="btn secondary-btn">
+            ← Volver al panel
+        </a>
+    </div>
+
+
+    <div class="property-form-card">
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            <div class="form-section">
+                <h2>Información principal</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group full">
+                        <label for="title">Título de la propiedad *</label>
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            placeholder="Ej: Apartamento moderno en Bogotá"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="operation">Operación *</label>
+                        <select id="operation" name="operation" required>
+                            <option value="">Seleccionar</option>
+                            <option value="Venta">Venta</option>
+                            <option value="Arriendo">Arriendo</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="property_type">Tipo de propiedad *</label>
+                        <select id="property_type" name="property_type" required>
+                            <option value="">Seleccionar</option>
+                            <option value="Apartamento">Apartamento</option>
+                            <option value="Casa">Casa</option>
+                            <option value="Local">Local</option>
+                            <option value="Oficina">Oficina</option>
+                            <option value="Lote">Lote</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="description">Descripción *</label>
+                        <textarea
+                            id="description"
+                            name="description"
+                            rows="5"
+                            placeholder="Describe las características principales de la propiedad..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Precio *</label>
+                        <input
+                            type="number"
+                            id="price"
+                            name="price"
+                            placeholder="Ej: 350000000"
+                            min="0"
+                            required
+                        >
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="form-section">
+                <h2>Ubicación</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="city">Ciudad *</label>
+                        <input
+                            type="text"
+                            id="city"
+                            name="city"
+                            placeholder="Ej: Bogotá"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="neighborhood">Barrio *</label>
+                        <input
+                            type="text"
+                            id="neighborhood"
+                            name="neighborhood"
+                            placeholder="Ej: Cedritos"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group full">
+                        <label for="address">Dirección</label>
+                        <input
+                            type="text"
+                            id="address"
+                            name="address"
+                            placeholder="Ej: Calle 140 # 12-45"
+                        >
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="form-section">
+                <h2>Características</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="bedrooms">Habitaciones</label>
+                        <input
+                            type="number"
+                            id="bedrooms"
+                            name="bedrooms"
+                            min="0"
+                            value="0"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bathrooms">Baños</label>
+                        <input
+                            type="number"
+                            id="bathrooms"
+                            name="bathrooms"
+                            min="0"
+                            value="0"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="parking">Parqueaderos</label>
+                        <input
+                            type="number"
+                            id="parking"
+                            name="parking"
+                            min="0"
+                            value="0"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="area">Área (m²)</label>
+                        <input
+                            type="number"
+                            id="area"
+                            name="area"
+                            min="0"
+                            value="0"
+                        >
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="form-section">
+                <h2>Imagen</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group full">
+                        <label for="image_url">URL de la imagen</label>
+                        <input
+                            type="url"
+                            id="image_url"
+                            name="image_url"
+                            placeholder="https://ejemplo.com/imagen.jpg"
+                        >
+
+                        <small>
+                            Puedes pegar aquí el enlace de una imagen pública.
+                        </small>
+                    </div>
+
+                    <div class="form-checkbox">
+
+                        <input
+                            type="checkbox"
+                            id="featured"
+                            name="featured"
+                        >
+
+                        <label for="featured">
+                            ⭐ Marcar como propiedad destacada
+                        </label>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="form-actions">
+
+                <a href="{% url 'dashboard' %}" class="btn secondary-btn">
+                    Cancelar
+                </a>
+
+                <button type="submit" class="btn operation-cta">
+                    🏠 Publicar propiedad
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

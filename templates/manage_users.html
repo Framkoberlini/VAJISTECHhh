@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="management-page">
+
+    <div class="management-header">
+        <div>
+            <span class="management-kicker">VAJISTECH</span>
+            <h1>Gestión de usuarios</h1>
+            <p>Consulta los usuarios registrados en la plataforma.</p>
+        </div>
+
+        <a href="{% url 'dashboard' %}" class="btn secondary-btn">
+            ← Volver al panel
+        </a>
+    </div>
+
+    <div class="management-summary">
+        <strong>{{ users|length }}</strong>
+        <span>usuarios registrados</span>
+    </div>
+
+    <div class="users-list">
+
+        {% for user in users %}
+
+        <div class="user-card">
+
+            <div class="user-avatar">
+                {{ user.username|first|upper }}
+            </div>
+
+            <div class="user-info">
+                <h3>{{ user.username }}</h3>
+
+                {% if user.email %}
+                    <p>{{ user.email }}</p>
+                {% else %}
+                    <p>Sin correo registrado</p>
+                {% endif %}
+            </div>
+
+            <div class="user-status">
+
+    {% if user.is_staff %}
+        <span class="user-badge admin-badge">
+            🔐 Administrador
+        </span>
+    {% else %}
+        <span class="user-badge">
+            👤 Usuario
+        </span>
+    {% endif %}
+
+    {% if user != request.user %}
+        <form method="post" action="{% url 'toggle_staff' user.pk %}">
+            {% csrf_token %}
+
+            {% if user.is_staff %}
+                <button type="submit" class="user-permission-btn remove-admin">
+                    Quitar administrador
+                </button>
+            {% else %}
+                <button type="submit" class="user-permission-btn make-admin">
+                    Hacer administrador
+                </button>
+            {% endif %}
+        </form>
+    {% endif %}
+
+</div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="empty-state">
+            <h3>No hay usuarios registrados</h3>
+            <p>Cuando existan usuarios aparecerán aquí.</p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

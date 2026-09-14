@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="management-page">
+
+    <!-- ENCABEZADO -->
+    <div class="management-header">
+        <div>
+            <span class="dashboard-label">VAJISTECH</span>
+            <h1>Solicitudes de contacto</h1>
+            <p>Consulta los clientes interesados en tus propiedades.</p>
+        </div>
+
+        <a href="{% url 'dashboard' %}" class="dashboard-primary-btn">
+            ← Volver al panel
+        </a>
+    </div>
+
+
+    <!-- CONTADOR -->
+    <div class="contacts-summary">
+        <div class="contacts-summary-icon">📩</div>
+
+        <div>
+            <span>Solicitudes recibidas</span>
+            <strong>{{ contacts|length }}</strong>
+        </div>
+    </div>
+
+
+    {% if contacts %}
+
+        <div class="management-contacts">
+
+            {% for contact in contacts %}
+
+                <div class="management-contact-card">
+
+                    <!-- AVATAR -->
+                    <div class="management-contact-avatar">
+                        {{ contact.name|first|upper }}
+                    </div>
+
+
+                    <!-- INFORMACIÓN PRINCIPAL -->
+                    <div class="management-contact-main">
+
+                        <div class="management-contact-header">
+
+                            <div>
+                                <h2>{{ contact.name }}</h2>
+
+                                <span class="contact-property">
+                                    🏠 {{ contact.property.title }}
+                                </span>
+                            </div>
+
+                            <span class="management-contact-date">
+                                {{ contact.created_at|date:"d/m/Y H:i" }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- DATOS DE CONTACTO -->
+                        <div class="management-contact-details">
+
+                            <a href="mailto:{{ contact.email }}">
+                                📧 {{ contact.email }}
+                            </a>
+
+                            {% if contact.phone %}
+                                <span>
+                                    📱 {{ contact.phone }}
+                                </span>
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- MENSAJE -->
+                        <div class="management-contact-message">
+
+                            <span>Mensaje</span>
+
+                            <p>
+                                {{ contact.message }}
+                            </p>
+
+                        </div>
+
+
+                        <!-- ACCIONES -->
+                        <div class="management-contact-actions">
+
+                            <a
+                                href="{% url 'property_detail' contact.property.pk %}"
+                                class="btn secondary-btn"
+                            >
+                                👁️ Ver propiedad
+                            </a>
+
+                            <a
+                                href="mailto:{{ contact.email }}"
+                                class="btn contact-reply-btn"
+                            >
+                                ✉️ Responder
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="management-empty">
+
+            <div class="management-empty-icon">📭</div>
+
+            <h2>No hay solicitudes todavía</h2>
+
+            <p>
+                Cuando un visitante contacte por una propiedad,
+                la solicitud aparecerá aquí.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

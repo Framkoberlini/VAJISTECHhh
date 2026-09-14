@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Crear cuenta | VajiSTech{% endblock %}
+{% block content %}
+<div class="auth-wrap"><div class="auth-card"><div class="auth-side"><span class="ai-orb">V</span><h2>Únete a VajiSTech</h2><p>Encuentra las mejores propiedades en un solo lugar.</p></div><div class="auth-form"><h1>Crear cuenta</h1><form method="post">{% csrf_token %}<input name="username" placeholder="Usuario" required><input type="email" name="email" placeholder="Correo electrónico" required><input type="password" name="password" placeholder="Contraseña" required><input type="password" name="password2" placeholder="Repite la contraseña" required><button class="btn full">Crear cuenta</button></form><p>¿Ya estás registrado? <a href="{% url 'login' %}">Ingresar</a></p></div></div></div>
+{% endblock %}

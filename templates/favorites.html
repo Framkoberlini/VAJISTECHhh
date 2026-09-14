@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Mis favoritos | VajiSTech{% endblock %}
+{% block content %}
+<section class="page-header"><span class="eyebrow">MI CUENTA</span><h1>Mis favoritos</h1><p>Tus propiedades guardadas.</p></section>
+<section class="section"><div class="cards">{% for p in properties %}{% include "partials/property_card.html" with property=p %}{% empty %}<div class="empty"><h3>No tienes favoritos todavía</h3><p>Explora propiedades y guarda las que más te gusten.</p><a class="btn" href="{% url 'properties' %}">Explorar propiedades</a></div>{% endfor %}</div></section>
+{% endblock %}

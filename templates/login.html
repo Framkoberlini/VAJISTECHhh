@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Ingresar | VajiSTech{% endblock %}
+{% block content %}
+<div class="auth-wrap"><div class="auth-card"><div class="auth-side"><span class="ai-orb">V</span><h2>Bienvenido a VajiSTech</h2><p>Guarda propiedades, consulta inmuebles y recibe orientación.</p></div><div class="auth-form"><h1>Iniciar sesión</h1><form method="post">{% csrf_token %}<input name="username" placeholder="Usuario" required><input type="password" name="password" placeholder="Contraseña" required><button class="btn full">Ingresar</button></form><p>¿No tienes cuenta? <a href="{% url 'register' %}">Crear cuenta</a></p></div></div></div>
+{% endblock %}

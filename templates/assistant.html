@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Vaji IA | VajiSTech{% endblock %}
+{% block content %}
+<section class="assistant-page">
+    <div class="assistant-intro">
+        <span class="ai-orb">✦</span>
+        <span class="eyebrow">VAJI IA</span>
+        <h1>Tu asistente inmobiliario</h1>
+        <p>Pregúntame sobre compra, arriendo o cómo buscar una propiedad.</p>
+    </div>
+    <div class="chat">
+        <div class="chat-message bot"><b>Vaji</b><p>¡Hola! 👋 Soy tu asistente inmobiliario. ¿Qué tipo de propiedad estás buscando?</p></div>
+        {% if answer %}<div class="chat-message user"><b>Tú</b><p>{{ user_text }}</p></div><div class="chat-message bot"><b>Vaji</b><p>{{ answer }}</p></div>{% endif %}
+        <form method="post" class="chat-form">{% csrf_token %}<input name="message" placeholder="Ej.: busco un apartamento en Bogotá..." required><button>Enviar</button></form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Contactar | VajiSTech{% endblock %}
+
+{% block content %}
+
+<section class="contact-page">
+
+    <div class="section-heading">
+        <span class="eyebrow">CONTACTO</span>
+        <h1>¿Te interesa esta propiedad?</h1>
+        <p>
+            Completa el formulario y envía tu mensaje al vendedor.
+        </p>
+    </div>
+
+    <div class="contact-property-card">
+
+        <h2>{{ property.title }}</h2>
+
+        <p class="muted">
+            {{ property.city }} - {{ property.neighborhood }}
+        </p>
+
+        <div class="price">
+            {{ property.formatted_price }}
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label for="name">Nombre *</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Tu nombre"
+                required
+            >
+
+            <label for="email">Correo electrónico *</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="tu@email.com"
+                required
+            >
+
+            <label for="phone">Teléfono</label>
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Tu número de teléfono"
+            >
+
+            <label for="message">Mensaje *</label>
+            <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Hola, estoy interesado/a en esta propiedad..."
+                required
+            ></textarea>
+
+            <button type="submit" class="btn operation-cta">
+                📩 Enviar solicitud
+            </button>
+
+        </form>
+
+        <a
+            class="btn secondary"
+            href="{% url 'property_detail' property.pk %}">
+            ← Volver a la propiedad
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}{{ property.title }} | VajiSTech{% endblock %}
+
+{% block content %}
+<section class="detail">
+
+    <div class="detail-image">
+        {% if property.image_url %}
+            <img src="{{ property.image_url }}" alt="{{ property.title }}">
+        {% else %}
+            <div class="house-placeholder big"></div>
+        {% endif %}
+    </div>
+
+    <div class="detail-info">
+
+        <span class="badge static">
+            {% if property.operation == "Venta" %}
+                🏠 Venta
+            {% else %}
+                🔑 Arriendo
+            {% endif %}
+        </span>
+
+        <div class="muted">
+            {{ property.city }} - {{ property.neighborhood }}
+        </div>
+
+        <h1>{{ property.title }}</h1>
+
+        <div class="price">
+            {{ property.formatted_price }}
+        </div>
+
+        <div class="detail-specs">
+            <span>🛏️ {{ property.bedrooms }} habitaciones</span>
+            <span>🚿 {{ property.bathrooms }} baños</span>
+            <span>🚗 {{ property.parking }} parqueaderos</span>
+            <span>📐 {{ property.area }} m²</span>
+        </div>
+
+        <p class="description">
+            {{ property.description }}
+        </p>
+
+        {% if property.address %}
+            <p class="address">
+                📍 {{ property.address }}
+            </p>
+        {% endif %}
+
+        <div class="actions">
+
+            {% if user.is_authenticated %}
+                <a class="btn" href="{% url 'toggle_favorite' property.pk %}">
+                    {% if is_favorite %}
+                        Quitar favorito
+                    {% else %}
+                        Guardar favorito
+                    {% endif %}
+                </a>
+            {% else %}
+                <a class="btn" href="{% url 'login' %}">
+                    Inicia sesión para guardar
+                </a>
+            {% endif %}
+
+            <a class="btn secondary" href="{% url 'assistant' %}">
+                Consultar a Vaji
+            </a>
+
+        </div>
+
+        <!-- BOTÓN PRINCIPAL DE VENTA / ARRIENDO -->
+        <a class="btn operation-cta"
+           href="{% url 'contact_property' property.pk %}">
+            {% if property.operation == "Venta" %}
+                🏠 VENTA
+            {% else %}
+                🔑 ARRIENDO
+            {% endif %}
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- MAPA -->
+{% if property.address %}
+
+<section class="map-section">
+
+    <div class="section-heading">
+        <span class="eyebrow">UBICACIÓN</span>
+        <h2>¿Dónde está esta propiedad?</h2>
+        <p>
+            Consulta la ubicación aproximada de la propiedad en Google Maps.
+        </p>
+    </div>
+
+    <div class="map-frame">
+        <iframe
+            src="https://www.google.com/maps?q={{ property.address|urlencode }},%20{{ property.city|urlencode }},%20Colombia&output=embed"
+            width="100%"
+            height="400"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+
+    <a
+        class="btn secondary"
+        href="https://www.google.com/maps/search/?api=1&query={{ property.address|urlencode }},%20{{ property.city|urlencode }},%20Colombia"
+        target="_blank">
+        📍 Abrir en Google Maps
+    </a>
+
+</section>
+
+{% endif %}
+
+{% endblock %}

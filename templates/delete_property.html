@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="delete-page">
+
+    <div class="delete-card">
+
+        <div class="delete-icon">⚠️</div>
+
+        <h1>Eliminar propiedad</h1>
+
+        <p>
+            ¿Estás seguro de que deseas eliminar esta propiedad?
+        </p>
+
+        <div class="delete-property-info">
+            <strong>{{ property.title }}</strong>
+            <span>{{ property.city }}{% if property.neighborhood %}, {{ property.neighborhood }}{% endif %}</span>
+        </div>
+
+        <p class="delete-warning">
+            Esta acción no se puede deshacer.
+        </p>
+
+        <div class="delete-actions">
+
+            <a href="{% url 'manage_properties' %}" class="btn secondary-btn">
+                Cancelar
+            </a>
+
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn delete-btn">
+                    🗑️ Eliminar definitivamente
+                </button>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

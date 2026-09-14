@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}VajiSTech{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script defer src="{% static 'js/app.js' %}"></script>
+</head>
+<body>
+<header class="navbar">
+    <a class="brand" href="{% url 'home' %}">
+        <span class="brand-mark">V</span>
+        <span>Vaji<span>STech</span></span>
+    </a>
+    <nav>
+        <a href="{% url 'home' %}">Inicio</a>
+        <a href="{% url 'properties' %}">Propiedades</a>
+        <a href="{% url 'favorites' %}">Favoritos</a>
+        <a href="{% url 'about' %}">Nosotros</a>
+       <a class="assistant-link" href="{% url 'assistant' %}">✦ Asistente IA</a>
+
+{% if user.is_authenticated and user.is_staff %}
+    <a href="{% url 'dashboard' %}" class="panel-link">
+         Panel de gestión
+    </a>
+{% endif %}
+
+{% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Salir</a>
+        {% else %}
+            <a href="{% url 'login' %}">Ingresar</a>
+        {% endif %}
+    </nav>
+</header>
+
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div class="message {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<main>{% block content %}{% endblock %}</main>
+
+<footer>
+    <div>
+        <div class="brand footer-brand"><span class="brand-mark">V</span> VajiSTech</div>
+        <p>Tu innovación en nuestras manos.</p>
+    </div>
+    <div>
+        <h4>VajiSTech</h4>
+        <p>Compra, venta y arriendo de propiedades en Colombia.</p>
+    </div>
+    <div>
+        <h4>Contacto</h4>
+        <p>vajistech@gmail.com</p>
+    </div>
+</footer>
+</body>
+</html>
